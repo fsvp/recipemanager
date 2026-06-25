@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title mb-4">
+🥦 Ingredient List
+</h2>
+
+<table class="table table-striped table-bordered">
+
+<thead class="table-dark">
+
+<tr>
+    <th>Ingredient</th>
+    <th>Base Quantity</th>
+    <th>Calories</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for ingredient in ingredients %}
+
+<tr>
+
+<td>
+    {{ ingredient["ingredient_name"] }}
+</td>
+
+<td>
+    {{ ingredient["base_quantity"] }} g
+</td>
+
+<td>
+    {{ ingredient["calorific_value"] }} kcal
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

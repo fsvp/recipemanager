@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title mb-4">
+🍲 Add New Recipe
+</h2>
+
+<form method="POST">
+
+<div class="mb-3">
+    <label class="form-label">Recipe Name</label>
+    <input type="text" class="form-control" name="recipe_name">
+
+    {% if field_errors.recipe_name %}
+    <small class="text-danger fw-bold">
+        {{ field_errors.recipe_name }}
+    </small>
+    {% endif %}
+</div>
+
+{% if field_errors.ingredients %}
+<div class="alert alert-danger">
+    {{ field_errors.ingredients }}
+</div>
+{% endif %}
+
+<table class="table table-bordered align-middle">
+
+    <thead class="table-dark">
+        <tr>
+            <th style="width: 55%;">Ingredient</th>
+            <th style="width: 45%;">Quantity (g)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for i in range(1,11) %}
+
+    <tr>
+        <td>
+            <label class="form-label">Ingredient {{ i }}</label>
+
+            <select class="form-select" name="ingredient{{ i }}">
+                <option value="">-- Select Ingredient --</option>
+
+                {% for ingredient in ingredients %}
+                <option value="{{ ingredient['id'] }}">
+                    {{ ingredient['ingredient_name'] }}
+                </option>
+                {% endfor %}
+            </select>
+
+            {% if field_errors["ingredient" ~ i] %}
+            <small class="text-danger fw-bold">
+                {{ field_errors["ingredient" ~ i] }}
+            </small>
+            {% endif %}
+        </td>
+
+        <td>
+            <label class="form-label">Quantity {{ i }}</label>
+
+            <input type="number" class="form-control" name="quantity{{ i }}">
+
+            {% if field_errors["quantity" ~ i] %}
+            <small class="text-danger fw-bold">
+                {{ field_errors["quantity" ~ i] }}
+            </small>
+            {% endif %}
+        </td>
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+<div class="mb-3">
+    <label class="form-label">Preparation Steps</label>
+
+    <textarea class="form-control" rows="5" name="preparation_steps"></textarea>
+
+    {% if field_errors.preparation_steps %}
+    <small class="text-danger fw-bold">
+        {{ field_errors.preparation_steps }}
+    </small>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Serves</label>
+
+    <input type="number" class="form-control" name="serves">
+
+    {% if field_errors.serves %}
+    <small class="text-danger fw-bold">
+        {{ field_errors.serves }}
+    </small>
+    {% endif %}
+</div>
+
+<button class="btn btn-success">
+    Save Recipe
+</button>
+
+</form>
+
+{% endblock %}
